@@ -1,12 +1,11 @@
 import java.util.Scanner;
-import java.util.Stack;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Deque;
 
 public class PalindromeCheckerApp {
     public static void main(String[] args){
         System.out.println("Welcome to the Palindrome Checker Management System");
-        System.out.println("Version : 6.0");
+        System.out.println("Version : 7.0");
         System.out.println("System initialized Successfully.");
 
         Scanner sc = new Scanner(System.in);
@@ -20,23 +19,25 @@ public class PalindromeCheckerApp {
         }
         sc.close();
     }
-    // Method to check palindrome using both Queue and Stack
+    // Method to check palindrome using Deque
     public static boolean isPalindrome(String str) {
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new LinkedList<>();
 
-        // Enqueue and push all characters
+        // Insert all characters into deque
         for (char c : str.toCharArray()) {
-            queue.add(c); // enqueue
-            stack.push(c); // push
+            deque.addLast(c);
         }
 
-        // Compare dequeue vs pop
-        while (!queue.isEmpty() && !stack.isEmpty()) {
-            if (queue.remove() != stack.pop()) {
+        // Compare front and rear until empty or mismatch
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
                 return false; // mismatch found
             }
         }
+
         return true; // no mismatches, it's a palindrome
     }
 }
