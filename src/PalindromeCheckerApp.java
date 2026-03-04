@@ -1,10 +1,12 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PalindromeCheckerApp {
     public static void main(String[] args){
         System.out.println("Welcome to the Palindrome Checker Management System");
-        System.out.println("Version : 5.0");
+        System.out.println("Version : 6.0");
         System.out.println("System initialized Successfully.");
 
         Scanner sc = new Scanner(System.in);
@@ -18,18 +20,20 @@ public class PalindromeCheckerApp {
         }
         sc.close();
     }
-    // Method to check palindrome using Stack
+    // Method to check palindrome using both Queue and Stack
     public static boolean isPalindrome(String str) {
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        // Push all characters into stack
+        // Enqueue and push all characters
         for (char c : str.toCharArray()) {
-            stack.push(c);
+            queue.add(c); // enqueue
+            stack.push(c); // push
         }
 
-        // Compare original string with reversed (via stack pops)
-        for (char c : str.toCharArray()) {
-            if (c != stack.pop()) {
+        // Compare dequeue vs pop
+        while (!queue.isEmpty() && !stack.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 return false; // mismatch found
             }
         }
