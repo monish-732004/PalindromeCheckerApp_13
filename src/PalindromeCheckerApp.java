@@ -3,32 +3,35 @@ import java.util.Scanner;
 public class PalindromeCheckerApp {
     public static void main(String[] args){
         System.out.println("Welcome to the Palindrome Checker Management System");
-        System.out.println("Version : 2.0");
+        System.out.println("Version : 4.0");
         System.out.println("System initialized Successfully.");
 
         Scanner sc = new Scanner(System.in);
         System.out.println("\nInput text:");
         String str = sc.nextLine();
 
-        boolean isPalindrome = true;
-        int n = str.length();
-
-        // Compare characters from start and end moving towards the center
-        for (int i = 0; i < n / 2; i++) {
-            if (str.charAt(i) != str.charAt(n - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        System.out.print("Is it a Palindrome? : ");
-        if (isPalindrome) {
-            System.out.print("True");
+        if (isPalindrome(str)) {
+            System.out.println("The string is a palindrome.");
         } else {
-            System.out.print("False");
+            System.out.println("The string is NOT a palindrome.");
         }
-
         sc.close();
+    }
+    // Method to check palindrome using char[] and two-pointer approach
+    public static boolean isPalindrome(String str) {
+        // Convert string to character array
+        char[] chars = str.toCharArray();
 
+        int left = 0; // pointer at start
+        int right = chars.length - 1; // pointer at end
+
+        while (left < right) {
+            if (chars[left] != chars[right]) {
+                return false; // mismatch found
+            }
+            left++;
+            right--;
+        }
+        return true; // no mismatches, it's a palindrome
     }
 }
